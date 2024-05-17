@@ -1,67 +1,61 @@
 #include <iostream>
-#include <string.h>
 using namespace std;
-
-class Hero
+class Student
 {
-
-public:
-    string name;
-    Hero(string name)
-    {
-        cout << this << endl;
-        this->name = name;
-        // cout << "Inside constructor" << endl;
-    }
-
 private:
-    int health;
+    string name;
+    int age;
+    int rollno;
 
 public:
-    char level;
-
-    void print()
+    Student(string name, int age)
     {
-        cout << level << endl;
+        this->name = name;
+        this->age = age;
+    }
+    Student(int rollno, string name)
+    {
+        this->rollno = rollno;
+        this->name = name;
     }
 
-    int getHealth()
-    {
-        return health;
-    }
+    // void setName(string name)
+    // {
+    //     this->name = name;
+    // }
+    // void setAge(int age)
+    // {
+    //     this->age = age;
+    // }
 
-    char getLevel()
+    int getAge()
     {
-        return level;
+        return age;
     }
-
-    void setHealth(int h)
+    string getName()
     {
-        health = h;
+        return name;
     }
-
-    void setLevel(char ch)
+    int getRollno()
     {
-        level = ch;
+        return rollno;
     }
 };
 
 int main()
 {
-    // dynamic allocation of objects
-
-    // int *i=new int; this int is alloctaed in heap memory
-
-    Hero *h = new Hero("shivansh");
-    cout << h->name << endl;
-    h->setHealth(10);
-    cout << h->getHealth() << endl;
-
-    // cout << "before initializing" << endl;
-    // Hero ramesh("shivansh");
-    // cout << "after initializing" << endl;
-    // cout << ramesh.name << endl;
-    // cout << &ramesh << endl;
+    // Student n1;
+    // n1.setAge(10);
+    // cout << n1.getAge() << endl;
+    Student n1("Shivansh", 21);
+    Student n2("Abhinav", 19);
+    Student n3(894, "tanishka");
+    cout << n1.getAge() << endl;
+    cout << n1.getName() << endl;
+    cout << n2.getAge() << endl;
+    cout << n2.getName() << endl;
+    cout << n3.getName() << endl;
+    cout << n3.getRollno() << endl;
 
     return 0;
 }

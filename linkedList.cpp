@@ -10,142 +10,97 @@ public:
     Node(int data)
     {
         this->data = data;
-        this->next = NULL;
-    }
-    ~Node()
-    {
-        int value = this->data;
-        if (this->next != NULL)
-        {
-            delete next;
-            this->next = NULL;
-        }
-        cout << "memory is free for node data" << value << endl;
+        this->next = nullptr;
     }
 };
 
-void InsertAtHead(Node *&head, int d)
+void InsertionAtHead(Node *&head, int data)
 {
-    Node *temp = new Node(d);
+    Node *temp = new Node(data);
     temp->next = head;
     head = temp;
-};
-
-void InsertAtTail(Node *&tail, int d)
-{
-    Node *temp = new Node(d);
-    tail->next = temp;
-    tail = temp;
 }
 
-void InsertAtPosition(Node *&tail, Node *&head, int position, int d)
-{
-    if (position == 1)
-    {
-        InsertAtHead(head, d);
-        return;
-    }
-
-    Node *temp = head;
-    int cnt = 1;
-
-    if (temp->next == NULL)
-    {
-        InsertAtTail(tail, d);
-    }
-
-    while (cnt < position - 1)
-    {
-        temp = temp->next;
-        cnt++;
-    }
-    Node *nodeToInsert = new Node(d);
-    nodeToInsert->next = temp->next;
-    temp->next = nodeToInsert;
-}
-
-void deleteNode(int position, Node *&head)
-{
-    if (position == 1)
-    {
-        Node *temp = head;
-        head = head->next;
-        delete temp;
-    }
-    else
-    {
-        Node *temp = head;
-        Node *temp2 = head;
-        int cnt = 1;
-        int cnt2 = 1;
-        while (cnt < position - 1)
-        {
-            temp = temp->next;
-            cnt++;
-        }
-        while (cnt2 < position)
-        {
-            temp2 = temp2->next;
-            cnt2++;
-        }
-
-        temp->next = temp2->next;
-    }
-}
-
-// how to traverse a linked list
-
-void print(Node *&head)
+void print(Node *head)
 {
     Node *temp = head;
-
-    while (temp != NULL)
+    while (temp != nullptr)
     {
         cout << temp->data << " ";
         temp = temp->next;
     }
-    cout << endl;
+    cout << endl; // Print newline after printing the list
+}
+
+void InsertAtTail(Node *&tail, int data)
+{
+    Node *temp = new Node(data);
+    tail->next = temp;
+    tail = temp;
+}
+void InsertAtAny(int n, Node *&head, int data)
+{
+    Node *temp = new Node(data);
+    Node *node2 = head;
+    for (int i = 1; i < n - 1; i++)
+    {
+        node2 = node2->next;
+    }
+    temp->next = node2->next;
+    node2->next = temp;
+}
+
+void DeleteFirstNode(Node *&head)
+{
+    Node *temp = head;
+    head = head->next;
+    delete temp;
+}
+
+void DeleteLastNode(Node *&head)
+{
+    Node *curr = head;
+    Node *prev = NULL;
+    while (curr->next != NULL)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    delete curr;
+    prev->next = NULL;
+}
+
+void DeleteAtAny(Node *&head, int n)
+{
+    Node *curr = head;
+    Node *prev = NULL;
+    for (int i = 1; i <= n - 1; i++)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    prev->next = curr->next;
+    delete curr;
 }
 
 int main()
 {
     Node *node1 = new Node(10);
-    // cout << node1->data << endl;
-    // cout << node1->next << endl;
-
     Node *head = node1;
     Node *tail = node1;
 
-    cout << "1" << endl;
-    print(head);
-
+    // InsertionAtHead(head, 30);
+    // // print(head);
+    InsertAtTail(tail, 30);
     // print(head);
-
-    InsertAtTail(tail, 20);
-
-    cout << "2" << endl;
-    print(head);
-
-    InsertAtTail(tail, 15);
-
-    cout << "3" << endl;
+    InsertionAtHead(head, 50);
+    InsertAtTail(tail, 22);
+    InsertAtAny(4, head, 21);
+    DeleteAtAny(head, 4);
 
     print(head);
 
-    InsertAtPosition(tail, head, 3, 22);
-
-    cout << "4" << endl;
-    print(head);
-
-    deleteNode(2, head);
-    print(head);
-
-    // InsertAtHead(head, 12);
-
-    // print(head);
-
-    // InsertAtHead(head, 15);
-    // print(head);
+    // InsertionAtHead(head, 40);
 
     return 0;
 }

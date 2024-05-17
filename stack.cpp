@@ -1,85 +1,126 @@
+// #include <iostream>
+// #include <stack>
+// using namespace std;
+
+// void reverseArr(int arr[], int size)
+// {
+//     stack<int> st1;
+//     int i = 0;
+//     for (int i = 0; i < size; i++)
+//     {
+//         st1.push(arr[i]);
+//     }
+
+//     while (!st1.empty())
+//     {
+//         arr[i] = st1.top();
+
+//         st1.pop();
+//         i++;
+//     }
+// }
+
+// int main()
+// {
+//     int arr[5] = {1, 2, 3, 4, 5};
+//     reverseArr(arr, 5);
+//     for (int i = 0; i < 5; i++)
+//     {
+//         cout << arr[i] << " ";
+//     }
+
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <stack>
+// using namespace std;
+
+// int main()
+// {
+//     stack<int> st;
+//     int t;
+//     cin >> t;
+//     while (t--)
+//     {
+//         int i = 1;
+
+//         for (int i = 0; i < 3; i++)
+//         {
+//             int num;
+//             cin >> num;
+//             st.push(num);
+//         }
+
+//         while (!st.empty())
+//         {
+//             if (i == 1)
+//             {
+//                 cout << "something: " << st.top() << " ";
+//                 st.pop();
+//             }
+//             else if (i == 2)
+//             {
+//                 cout << "something2: " << st.top() << " ";
+//                 st.pop();
+//             }
+//             else if (i == 3)
+//             {
+//                 cout << "something3: " << st.top() << " ";
+//                 st.pop();
+//             }
+//             i++;
+//         }
+
+//         cout << endl;
+//     }
+
+//     return 0;
+// }
+
+// insert at bottom
+
 #include <iostream>
 #include <stack>
+#include <vector>
+
 using namespace std;
 
-class Stack
+void insertAtBottom(stack<int> &st, int n)
 {
-public:
-    int *arr;
-    int top;
-    int size;
+    vector<int> arr;
+    while (!st.empty())
+    {
+        arr.push_back(st.top());
+        st.pop();
+    }
+    st.push(n);
+    for (int i = arr.size() - 1; i != -1; i--)
+    {
+        st.push(arr[i]);
+    }
+}
 
-    Stack(int size)
+void printStack(stack<int> st)
+{
+    while (!st.empty())
     {
-        this->size = size;
-        arr = new int(size);
-        top = -1;
+        cout << st.top() << " ";
+        st.pop();
     }
-
-    void push(int element)
-    {
-        if (size - top > 1)
-        {
-            top++;
-            arr[top] = element;
-        }
-        else
-        {
-            cout << "Stack Overflow" << endl;
-        }
-    }
-    {
-    }
-    void pop()
-    {
-        if (top >= 0)
-        {
-            top--;
-        }
-        else
-        {
-            cout << "Stack Underflow" << endl;
-        }
-    }
-    int peek()
-    {
-        if (top >= 0 && top < size)
-            return arr[top] else
-            {
-                cout << "Stack is Empty" << endl;
-                return -1;
-            }
-    }
-    bool isEmpty()
-    {
-    }
-};
-
+    cout << endl;
+}
 int main()
 {
-    stack<int> s;
+    stack<int> st;
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    printStack(st);
 
-    // push operation
-    s.push(2);
-    s.push(3);
-    s.push(4);
-    s.push(5);
-    s.push(6);
+    insertAtBottom(st, 5);
 
-    // pop
-    s.pop();
-    cout << "Printing top element " << s.top() << endl;
-
-    if (s.empty())
-    {
-        cout << "Stack is empty" << endl;
-    }
-    else
-    {
-        cout << "stack is not empty" << endl;
-    }
-
-    cout << "size of stack: " << s.size() << endl;
+    printStack(st);
 
     return 0;
 }

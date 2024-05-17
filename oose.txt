@@ -1,0 +1,14 @@
+
+quality management system:
+it documents the structure responsibilities and procedure required to achieve effective quality management
+quality plan:
+such as quality policy and bitter procedure
+quality policy;
+it is a management process that aims to develop and manage the quality of software
+
+there are three components :
+1. quality assurance 
+2. quality planning 
+3. quality control
+
+
