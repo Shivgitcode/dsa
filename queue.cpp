@@ -1,28 +1,124 @@
+// #include <iostream>
+// #include <queue>
+// using namespace std;
+
+// int main()
+// {
+//     queue<int> q;
+//     q.push(10);
+//     q.push(40);
+//     q.push(123);
+//     q.push(500);
+
+//     int n = q.size();
+
+//     // q.pop();
+//     while (n--)
+//     {
+//         cout << q.front() << " ";
+//         q.push(q.front());
+//         q.pop();
+//     }
+
+//     cout << endl;
+
+//     cout << q.front() << endl;
+
+//     cout << q.back() << endl;
+// }
+
+// reversing a queue
+
+// #include <iostream>
+// #include <queue>
+// #include <stack>
+// using namespace std;
+
+// void reverseQueue(queue<int> &q)
+// {
+//     stack<int> s;
+//     int size = q.size();
+//     while (size--)
+//     {
+//         s.push(q.front());
+//         q.pop();
+//     }
+//     while (!s.empty())
+//     {
+//         q.push(s.top());
+//         s.pop();
+//     }
+// }
+
+// int main()
+// {
+//     queue<int> q;
+
+//     q.push(10);
+//     q.push(20);
+//     q.push(30);
+
+//     int n = q.size();
+
+//     reverseQueue(q);
+//     while (n--)
+//     {
+//         cout << q.front() << endl;
+//         q.push(q.front());
+//         q.pop();
+//     }
+
+//     return 0;
+// }
+
+// reversing k elements of a queue
+
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
+
+void reverseK(queue<int> &q, int n)
+{
+    stack<int> s;
+    int size = q.size() - n;
+    while (n--)
+    {
+        s.push(q.front());
+        q.pop();
+    }
+
+    while (!s.empty())
+    {
+        q.push(s.top());
+        s.pop();
+    };
+    while (size--)
+    {
+        q.push(q.front());
+        q.pop();
+    }
+}
 
 int main()
 {
-    // create a queue
+
     queue<int> q;
-    q.push(3);
-    q.push(4);
-    q.push(5);
-    q.push(6);
+    int size = q.size();
+    int n = 2;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    q.push(40);
+    q.push(50);
 
-    cout << "printing first element of queue: " << q.front() << endl;
-    q.pop();
-    cout << "printing first element fo queue: " << q.front() << endl;
-    cout << "printing size of queue : " << q.size() << endl;
+    reverseK(q, n);
 
-    if (q.empty())
+    while (size--)
     {
-        cout << "Queue is empty" << endl;
-    }
-    else
-    {
-        cout << "queue is not empty" << endl;
+        cout << q.front() << " ";
+        q.push(q.front());
+        q.pop();
     }
 
     return 0;
