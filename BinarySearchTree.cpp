@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
 
 class Node
@@ -7,49 +9,69 @@ public:
     int data;
     Node *left;
     Node *right;
-
-    Node(int d)
+    Node(int data)
     {
-        this->data = d;
+        this->data = data;
         this->left = NULL;
         this->right = NULL;
     }
 };
 
-Node *insertIntoBST(Node *&root, int d)
+Node *buildTree()
 {
-    if (root = NULL)
+    int n;
+    cin >> n;
+    if (n == -1)
     {
-        root = new Node(d);
-        return root;
+        return NULL;
+    }
+    Node *temp = new Node(n);
+    if (temp->data > n)
+    {
+        cout << "Insert in left of " << n << ": ";
+        temp->left = buildTree();
+    }
+    else if (temp->data < n)
+    {
+        cout << "Insert in right of " << n << ": ";
+        temp->right = buildTree();
     }
 
-    if (d > root->data)
-    {
-        root->right = insertIntoBST(root->right, d);
-    }
-    else
-    {
-        root->left = insertIntoBST(root->left, d);
-    }
+    return temp;
 }
 
-void takeInput(Node *&root)
+vector<int> levelOrder(Node *root)
 {
-    int data;
-    cin >> data;
-    while (data != -1)
+    vector<int> v;
+    queue<Node *> q;
+    q.push(root);
+    Node *temp;
+    while (!q.empty())
     {
-        insertIntoBST(root, data);
-        cin >> data;
+        temp = q.front();
+        v.push_back(temp->data);
+        q.pop();
+        if (temp->left)
+        {
+            q.push(temp->left);
+        }
+        if (temp->right)
+        {
+            q.push(temp->right);
+        }
     }
+
+    return v;
 }
 
 int main()
 {
-    Node *root = NULL;
-    cout << "Enter data to create BST" << endl;
-    takeInput();
+
+    cout << "Create root : ";
+
+    Node *root = buildTree();
+
+    levelOrder(root);
 
     return 0;
 }

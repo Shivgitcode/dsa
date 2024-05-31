@@ -290,31 +290,21 @@ vector<int> levelOrder(Node *root)
     return v;
 }
 
-void leafNodes(Node *root)
+void preOrder(Node *root)
 {
-    queue<Node *> q;
-    q.push(root);
-    vector<int> v;
-    Node *temp;
-    while (!q.empty())
+
+    if (root == NULL)
     {
-        temp = q.front();
-        q.pop();
-        if (!(temp->left && temp->right))
-        {
-            v.push_back(temp->data);
-        }
-        else
-        {
-            q.push(temp->left);
-            q.push(temp->right);
-        }
+        return;
     }
 
-    for (int i = 0; i < v.size(); i++)
+    if (!root->left && !root->right)
     {
-        cout << v[i] << " ";
+        cout << root->data << " ";
     }
+
+    preOrder(root->left);
+    preOrder(root->right);
 }
 
 int main()
@@ -326,7 +316,8 @@ int main()
     // cout << sizeOfBinaryTree << endl;
 
     // sumOfBinaryTree(root);
-    leafNodes(root);
+    // leafNodes(root);
+    preOrder(root);
 
     return 0;
 }
