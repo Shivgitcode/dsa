@@ -172,26 +172,78 @@
 
 //     return 0;
 // }
+// #include <iostream>
+// #include <algorithm>
+// #include <vector>
+// using namespace std;
+
+// int main()
+// {
+//     vector<int> v = {2, 6, 3, 12, 56, 8};
+//     sort(v.begin(), v.end());
+//     for (int i = 0; i < v.size(); i++)
+//     {
+//         cout << v[i] << " ";
+//     }
+
+//     return 0;
+// }
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-int createArray(int s)
+class Node
 {
-    vector<int> arr(s);
-    for (int i = 0; i < s; i++)
+public:
+    int data;
+    Node *left;
+    Node *right;
+    Node(int data)
     {
-        int n;
-        cin >> n;
+        this->data = data;
+        left = right = NULL;
     }
+};
+
+Node *buildTree()
+{
+    int n;
+    cin >> n;
+    if (n == -1)
+    {
+        return NULL;
+    }
+    Node *temp = new Node(n);
+    cout << "Insert into left of " << n << ": ";
+    temp->left = buildTree();
+    cout << "Insert into right of " << n << ": ";
+    temp->right = buildTree();
+
+    return temp;
+}
+
+int sumLeafToRoot(Node *root, int sum)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    sum = sum * 10 + root->data;
+    if (root->left == NULL && root->right == NULL)
+    {
+        return sum;
+    }
+    int leftSum = sumLeafToRoot(root->left, sum);
+    int rightSum = sumLeafToRoot(root->right, sum);
+
+    return leftSum + rightSum;
 }
 
 int main()
 {
-    int s1, s2;
-    vector<int> v1(s1);
-    vector<int> v2(s2);
+    cout << "Create Tree: ";
+    Node *root = buildTree();
+    cout << sumLeafToRoot(root, 0) << endl;
 
     return 0;
 }

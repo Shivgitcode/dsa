@@ -334,13 +334,234 @@
 //     return 0;
 // }
 
+// diameter of binary tree
+
+// #include <iostream>
+// #include <vector>
+// #include <queue>
+
+// using namespace std;
+
+// class Node
+// {
+// public:
+//     int data;
+//     Node *left;
+//     Node *right;
+//     Node(int data)
+//     {
+//         this->data = data;
+//         left = right = NULL;
+//     }
+// };
+
+// Node *buildTree()
+// {
+//     int n;
+//     cin >> n;
+//     if (n == -1)
+//         return NULL;
+//     Node *temp = new Node(n);
+//     cout << "Insert inside left of " << n << ": ";
+//     temp->left = buildTree();
+//     cout << "Insert inside right of " << n << ": ";
+//     temp->right = buildTree();
+//     return temp;
+// }
+
+// int height(Node *root)
+// {
+//     if (root == NULL)
+//     {
+//         return 0;
+//     }
+//     int leftNode = height(root->left);
+//     int rightNode = height(root->right);
+//     return max(leftNode, rightNode) + 1;
+// }
+
+// int diameter(Node *root)
+// {
+//     if (root == NULL)
+//     {
+//         return 0;
+//     };
+//     int left = diameter(root->left);
+//     int right = diameter(root->right);
+//     int h = height(root->left) + height(root->right) + 1;
+//     return max(left, max(right, h));
+// }
+
+// vector<vector<int>> levelOrder(Node *root)
+// {
+//     queue<Node *> q;
+//     vector<vector<int>> ans;
+//     q.push(root);
+//     Node *temp;
+//     bool leftRight = true;
+//     while (!q.empty())
+//     {
+//         int s = q.size();
+//         vector<int> v(s);
+//         for (int i = 0; i < s; i++)
+//         {
+//             temp = q.front();
+//             q.pop();
+
+//             int index = leftRight ? i : s - i - 1;
+
+//             v[index] = temp->data;
+
+//             if (temp->left)
+//             {
+//                 q.push(temp->left);
+//             }
+//             if (temp->right)
+//             {
+//                 q.push(temp->right);
+//             }
+//         }
+//         ans.push_back(v);
+//         leftRight = !leftRight;
+//     }
+
+//     return ans;
+// }
+
+// bool isBalanced(Node *root)
+// {
+//     if (root == NULL)
+//     {
+//         return true;
+//     }
+//     bool right = isBalanced(root->right);
+//     bool left = isBalanced(root->left);
+//     bool diff = abs(height(root->left) - height(root->right)) <= 1;
+//     if (left && right && diff)
+//     {
+//         return 1;
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
+
+// vector<vector<int>> levelOrder2(Node *root)
+// {
+//     queue<Node *> q;
+//     q.push(root);
+//     vector<vector<int>> ans;
+//     Node *temp;
+//     while (!q.empty())
+//     {
+//         int s = q.size();
+//         vector<int> v;
+//         for (int i = 0; i < s; i++)
+//         {
+//             temp = q.front();
+//             v.push_back(temp->data);
+//             q.pop();
+//             if (temp->left)
+//                 q.push(temp->left);
+//             if (temp->right)
+//                 q.push(temp->right);
+//         }
+//         ans.push_back(v);
+//     }
+//     return ans;
+// }
+
+// int main()
+// {
+//     cout << "Create tree: ";
+//     Node *root = buildTree();
+
+//     cout << height(root) << endl;
+//     cout << diameter(root) << endl;
+//     vector<vector<int>> ans = levelOrder(root);
+//     for (int i = 0; i < ans.size(); i++)
+//     {
+//         for (int j = 0; j < ans[i].size(); j++)
+//         {
+//             cout << ans[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+
+//     if (isBalanced(root))
+//     {
+//         cout << "true";
+//     }
+//     else
+//     {
+//         cout << "false";
+//     }
+
+//     vector<vector<int>> ans2 = levelOrder(root);
+//     for (int i = 0; i < ans[2].size(); i++)
+//     {
+//         cout << ans[2][i] << " ";
+//     }
+
+//     return 0;
+// }
+
 #include <iostream>
 #include <vector>
 using namespace std;
 
+class Node
+{
+public:
+    int data;
+    Node *left;
+    Node *right;
+    Node(int data)
+    {
+        this->data = data;
+        left = right = NULL;
+    }
+};
+
+Node *buildTree(Node *root, int n)
+{
+    if (root == NULL)
+    {
+        root = new Node(n);
+        return root;
+    }
+    if (n < root->data)
+    {
+        root->left = buildTree(root->left, n);
+    }
+    if (n > root->data)
+    {
+        root->right = buildTree(root->right, n);
+    }
+    return root;
+}
+
+void Inorder(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    Inorder(root->left);
+    cout << root->data << endl;
+    Inorder(root->right);
+}
+
 int main()
 {
-    vector<int> n;
+    Node *root = NULL;
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    for (int i = 0; i < arr.size(); i++)
+    {
+        Node *root = buildTree(root, arr[i]);
+    }
+    Inorder(root);
 
     return 0;
 }
